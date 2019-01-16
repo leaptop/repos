@@ -1,10 +1,12 @@
-﻿<HTML>
+﻿
+<HTML>
     <HEAD> 
         <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <TITLE>Лабораторная работа 3.2</TITLE>
     </HEAD>
-	<!--каждому человеку свой счетчик посещений-->
+	
 	<SCRIPT language="JavaScript">
+	var ir = 0;
 		function setCookie(c_name,value,expiredays)
 		{
 			var exdate = new Date();
@@ -36,6 +38,13 @@
 		
 		function Write()
 		{
+		var nk = nick.name;
+			var getting = browser.cookies.get({
+			name: nk
+			});
+		    //getting.then(logCookie);
+		
+		
 			myname  = getCookie("name1");
 			mycount = getCookie("count1");
 			mytime  = getCookie("time1");
@@ -87,10 +96,10 @@
 			<h2>COOKIE</h2>
 			<SCRIPT>Write();</SCRIPT>			
 			<p>
-				Введите имя: <input type="text" name="nickname"></input>
+				Введите имя: <input type="text" id = "nick" name="nickname"></input>
 			</p>
 			<p>
-				<input type="button" value="Зарегистрироваться" onClick="setCookie('name1',document.form.nickname.value,100);"></input>
+				<input type="button" value="Зарегистрироваться" onClick="setCookie('name'+ir,document.form.nickname.value,100);"></input>
 			</p>
 			<p>
 				<input type="button" value="Обнулить посещения" onClick="clearCookie('name1');clearCookie('count1');clearCookie('time1');"></input>
