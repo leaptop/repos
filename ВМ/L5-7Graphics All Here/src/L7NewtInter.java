@@ -43,7 +43,7 @@ class L7NewtInter {
             sum = sum + (u_cal(u, i) * y[0][i]) /
                     fact(i);
         }
-        System.out.println("\n Ньютон: если х = " + value + ", то у =  " + String.format("%.6g%n", sum));
+        System.out.println("\n Newton - if x = " + value + ",then y =  " + String.format("%.6g%n", sum));
         return  sum;
     }
 } 

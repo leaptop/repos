@@ -445,3 +445,5 @@ https://www.youtube.com/watch?v=0nDldY61whQ
 https://docs.microsoft.com/ru-ru/visualstudio/data-tools/create-a-sql-database-by-using-a-designer?view=vs-2019
 
 Если в таблице значения Continent типа ntext, то их можно кастануть в запросе sql (CAST(Continent AS NVARCHAR(MAX)) = @cap) для сравнения с другой строкой
+
+cd / - так в цмд cmd винды переходят к корню(диску)

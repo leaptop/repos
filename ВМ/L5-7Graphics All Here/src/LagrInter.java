@@ -128,7 +128,7 @@ public class LagrInter extends Application {
             }
             y += (chisl *= (yy[i])) / znam;
         }
-        System.out.println("Лагранж - если x = " + t + ", то" + " y = " + y);
+        System.out.println("Lagrange - if x = " + t + ", then" + " y = " + y);
         return y;
     }
 
@@ -143,7 +143,7 @@ public class LagrInter extends Application {
                         / (xx[j + i + 1] - xx[j] );
             }
         }
-        System.out.println(" Эйткен - если х = " + x + ", то у = " + yw[0]);
+        System.out.println(" Eitken - if x = " + x + ", then y = " + yw[0]);
         return yw[0];
     }
 
@@ -156,13 +156,14 @@ public class LagrInter extends Application {
                 //System.out.println("ait counting yy[k-1] = " + yy[k - 1]);//Последний k при этом не должен использоваться.
             }//Поэтому внутренний цикл укорачивается на i каждый раз.
         }
-        System.out.println(" Эйткен - если х = " + x + ", то у = " + yw[0]);
+        System.out.println(" Eitken - if x = " + x + ", then y = " + yw[0]);
         return yw[0];
     }
 
     @Override
     public void start(Stage stage) {
-        stage.setTitle("Интерполяция по формулам Лагранжа, Ньютона, схеме Эйткена");
+		
+		stage.setTitle("Interpolation by Lagrange, Newton, Aitken formulas");
         final NumberAxis xAxis = new NumberAxis();
         final NumberAxis yAxis = new NumberAxis();
         xAxis.setLabel("X");
@@ -176,7 +177,7 @@ public class LagrInter extends Application {
         for (int i = 0; i < numD; i++) {
             seriesPrecise.getData().add(new XYChart.Data(x[i], y[i]));
         }
-        seriesPrecise.setName("Точный график");
+        seriesPrecise.setName("Precise graph");
 
         preciseBuild(xx, yy, start2, sh2, n);//заполняю xx, yy точками, по которым потом буду интерполировать
         interpBuildLagrange(x, y, xx, yy, start, sh, numD);
@@ -184,7 +185,7 @@ public class LagrInter extends Application {
         for (int i = 0; i < numD; i++) {
             seriesLagr.getData().add(new XYChart.Data(x[i], y[i]));
         }
-        seriesLagr.setName("Лагранж");
+        seriesLagr.setName("Lagrange");
 
         clearXY();
         interpBuildAitk(x, y, xx, yy, start, sh, numD);
@@ -192,7 +193,7 @@ public class LagrInter extends Application {
         for (int i = 0; i < numD; i++) {
             seriesAitk.getData().add(new XYChart.Data(x[i], y[i]));
         }
-        seriesAitk.setName("Эйткен");
+        seriesAitk.setName("Aitken");
         clearXY();
         L7NewtInter L7N = new L7NewtInter();
         interpBuildNewton(x, y, xx, yy, start, sh, numD, L7N, n);
@@ -201,13 +202,13 @@ public class LagrInter extends Application {
         for (int i = 0; i < numD; i++) {
             seriesNewt.getData().add(new XYChart.Data(x[i], y[i]));
         }
-        seriesNewt.setName("Ньютон");
+        seriesNewt.setName("Newton");
 
         XYChart.Series seriesInt = new XYChart.Series();
         for (int i = 0; i < n; i++) {
             seriesInt.getData().add(new XYChart.Data(xx[i], yy[i]));
         }
-        seriesInt.setName("Точки интерполяции");
+        seriesInt.setName("Interpolation points");
 
         lineChart.setAnimated(false);
         lineChart.setCreateSymbols(true);
@@ -217,10 +218,12 @@ public class LagrInter extends Application {
         scene.getStylesheets().add(getClass().getResource("Style.css").toExternalForm());
         stage.setScene(scene);
         stage.show();
+		
     }//Графики на самом деле не совпадают. Это можно проверить, подправив добавляемую координату: y[i]+0.08, sh2 = 0.8
     //Ну и по последним цифрам полученных значений функций тоже видна разница
 
     public static void main(String[] args) {
         launch(args);
+		//return();
     }
 }
