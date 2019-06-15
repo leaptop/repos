@@ -55,55 +55,15 @@ namespace L0
 
                     }
                 }
-
-                button2.Enabled = true;
-                maxToolStripMenuItem.Enabled = true;
             }
             else
             {
-                MessageBox.Show("N и M не могут быть нулевыми");
+                MessageBox.Show("N не может быть нулевым");
             }
+            //запрещает сортировать содержимое столбцов кликом по хедеру, а также минимизирует длину ячеек:
+            dataGridView1.Columns.Cast<DataGridViewColumn>().ToList().ForEach(f => f.SortMode = DataGridViewColumnSortMode.NotSortable);
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            int[] masLocal = new int[n];
-            int max = 0;
-            int i, j;
-            for (i = 0; i < n; ++i)
-            {
-                for (j = 0; j < n; ++j)
-                {
-                    try
-                    {
-                        max = Convert.ToInt32(dataGridView1.Rows[i].Cells[j].Value);
-                        masLocal[i] = Convert.ToInt32(dataGridView1.Rows[i].Cells[0].Value);
-                    }
-                    catch (Exception ee)
-                    {
-                        MessageBox.Show("Значения ячеек м.б. только 1 и 0.\n" +
-                            "Проверьте ячейку [" + i + "][" + j + "] (" + elems[i] + ", " + elems[j] + ")", "неверный ввод",
-     MessageBoxButtons.OK, MessageBoxIcon.Error); return;
-                    }
-
-                    if (max != 0 && max != 1)
-                    {
-                        MessageBox.Show("Значения ячеек м.б. только 1 и 0.\n В ячейке[" + i + "][" + j +
-                            "]  (" + elems[i] + ", " + elems[j] + ")" +
-                            "установлено: " + max, "неверный ввод",
-                         MessageBoxButtons.OK, MessageBoxIcon.Error); return;
-                    }
-                    if (max > masLocal[i])
-                        masLocal[i] = max;
-                }
-            }
-            dataGridView2.RowCount = n;
-            dataGridView2.ColumnCount = 1;
-            for (i = 0; i < n; ++i)
-                dataGridView2.Rows[i].Cells[0].Value = masLocal[i];
-            button2.Enabled = true;
-            maxToolStripMenuItem.Enabled = true;//стрип меню - главное меню
-        }
         private void button3_Click(object sender, EventArgs e)
         {
             int i = 0, j = 0;
@@ -136,30 +96,32 @@ namespace L0
             reflexivityCheck();
             antireflexivityCheck();
             symmetryCheck();
+            antySymmetryCheck();
+            transitivityCheck();
         }
         public void reflexivityCheck()
         {
             int cmp = 1;
             for (int i = 0; i < n; i++) { cmp *= mas[i, i]; }
             if (cmp == 1) textBox1.Text = "Отношение рефлексивно, т.к главаная диагональ состоит из единиц";
-            else textBox1.Text = "Отношение нерефлексивно, т.к главная диагональ не состоит из единиц";
+            else textBox1.Text = "Отношение не рефлексивно, т.к главная диагональ не состоит из единиц";
             button3.Enabled = true;
         }
         public void antireflexivityCheck()
         {
             int cmp = 0;
-            for(int i = 0; i<n; i++)
+            for (int i = 0; i < n; i++)
             {
                 cmp += mas[i, i];
                 if (cmp == 0) textBox2.Text = "Отношение антирефлексивно, т.к. главная диагональ состоит из нулей";
                 else textBox2.Text = "Отношение не антирефлексивно, т.к главная диагональ не состоит из нулей";
             }
         }
-       public void symmetryCheck()
+        public void symmetryCheck()
         {
             int i = 0, j = 0;
-            for (i = 0; i < n; i++) 
-                for(j = 0; j<n; j++)
+            for (i = 0; i < n; i++)
+                for (j = 0; j < n; j++)
                 {
                     if (mas[i, j] != mas[j, i])
                     {
@@ -169,7 +131,44 @@ namespace L0
                     }
                     else continue;
                 }
-            textBox3.Text = "Отношение симметрично, т.к. элементы матрицы симметричны относительно главной диагонали";
+            textBox3.Text = "Отношение симметрично, т.к. все симметричные относительно главной диагонали элементы матрицы равны";
+        }
+        public void antySymmetryCheck()
+        {
+            int i = 0, j = 0;
+            for (i = 0; i < n; i++)
+                for (j = 0; j < n; j++)
+                {
+                    if (i == j) continue;
+                    if ((mas[i, j] == mas[j, i]) && mas[i, j] != 0)
+                    {
+                        textBox4.Text = "Отношение не антисимметрично, т.к. (" + elems[i] + ", " + elems[j] +
+                            ") равно (" + elems[j] + ", " + elems[i] + ")";
+                        return;
+                    }
+                    else continue;
+                }
+            textBox4.Text = "Отношение антисимметрично, т.к. все единичные элементы преобразованием симметрии относительно главной диагонали переходят в нули";
+        }
+        public void transitivityCheck()
+        {
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    for (int k = 0; k < n; k++)
+                    {
+                        if (i != j && j != k && i != k && 
+                            !(mas[i, j] == 1 && mas[j, k] == 1 && mas[i, k] == 1)) textBox5.Text =
+                              "Отношение не тразитивно, т.к. нет транзита (" + elems[i] + ", " + elems[j] + ")(" + elems[j] + ", " + elems[k] + ")(" + elems[i] + ", " + elems[k] + ")";
+                    }
+                }
+            }
+            /*status := True;
+for i := 1 to size do
+  for j := 1 to size do
+    for k := 1 to size do
+      if (tr[i,j] <> 1) and (tr[j,k] <> 1) and (tr[i,k] <> 1) then status := False;*/
         }
 
         private void sizeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -178,67 +177,5 @@ namespace L0
             f.Owner = this;
             f.ShowDialog();
         }
-
-        private void dataGridView1_CellValuePushed(object sender, DataGridViewCellValueEventArgs e)
-        {//здесь происходит интерактивное изменеие ячеек... нет... эта штука пока не реагирует
-         /* int j = e.ColumnIndex;
-          int i = e.RowIndex;
-          int value = Convert.ToInt32(e.ToString());
-          if (value == 0 || value == 1)
-              mas[i, j] = value;
-          else
-          {
-              MessageBox.Show("your message",
- "window title",
- MessageBoxButtons.OK,
- MessageBoxIcon.Warning // for Warning  
-                        //MessageBoxIcon.Error // for Error 
-                        //MessageBoxIcon.Information  // for Information
-                        //MessageBoxIcon.Question // for Question
-);
-          }*/
-        }
-        public void numericUpDown2_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
-        }
-        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-        {//этот метод - не то, что нужно  
-
-        }
-        public void numericUpDown1_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-        private void startToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-        private void toolStripTextBox1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
     }
 }

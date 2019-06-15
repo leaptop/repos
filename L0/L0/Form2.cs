@@ -48,7 +48,7 @@ namespace L0
                 int n = Convert.ToInt32(numericUpDown1.Value);
                 int m = Convert.ToInt32(numericUpDown2.Value);
                 main.numericUpDown1.Value = n;
-                main.numericUpDown2.Value = m;
+               
             }
             this.Close();
         }
