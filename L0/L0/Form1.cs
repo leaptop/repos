@@ -13,27 +13,31 @@ namespace L0
 {
     public partial class Form1 : Form
     {
-        public int n;
-        public int m;
-        int[,] mas;
         public Form1()
         {
             InitializeComponent();
         }
-
-        private void toolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("ФИО: Алексеев С.В. \nГруппа:ИП-712");
-        }
-
-        public string[] elems = new string[18];
+        public int n;
+        public int m;
+        int[,] mas;
+        public string[] elems;
 
         private void button1_Click(object sender, EventArgs e)
-        {//if (1) textBox6.Text = " 1";
+        {
+            n = Convert.ToInt32(numericUpDown1.Value);
+            if (n > 26 || n < 0)
+            {
+                MessageBox.Show("Значение N в множестве по умолчанию не м.б. более 26");
+                numericUpDown1.Value = n = 0;
+                return;
+            }
+
+            elems = new string[26];
             elems[0] = "a"; elems[1] = "b"; elems[2] = "c"; elems[3] = "d"; elems[4] = "e"; elems[5] = "f";
             elems[6] = "g"; elems[7] = "h"; elems[8] = "i"; elems[9] = "j"; elems[10] = "k"; elems[11] = "l";
             elems[12] = "m"; elems[13] = "n"; elems[14] = "o"; elems[15] = "p"; elems[16] = "q"; elems[17] = "r";
-            n = Convert.ToInt32(numericUpDown1.Value);
+            elems[18] = "s"; elems[19] = "t"; elems[20] = "u"; elems[21] = "v"; elems[22] = "w"; elems[23] = "x";
+            elems[24] = "y"; elems[25] = "z";
 
             Random rand = new Random();
             if (n != 0)
@@ -67,12 +71,10 @@ namespace L0
         private void button3_Click(object sender, EventArgs e)
         {
             int i = 0, j = 0;
-            int[] arrCmp = new int[n];
-
             for (i = 0; i < n; ++i)
             {
                 for (j = 0; j < n; ++j)
-                {//двойная некрасивая проверка на правильность матрицы бинарного отношения
+                {//двойная некрасивая проверка на правильность матрицы бинарного отношения(проверяет, использованы ли допустимые символы)
                     try
                     {
                         mas[i, j] = Convert.ToInt32(dataGridView1.Rows[i].Cells[j].Value);
@@ -217,6 +219,56 @@ namespace L0
             dataGridView1.Rows[0].Cells[2].Value = mas[0, 2];
         }
 
+
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            string s = textBox7.Text;
+            elems = s.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            n = elems.Length;
+            for (int i = 0; i < n; i++)
+                for (int j = 0; j < n; j++)
+                {
+                    if (String.Compare(elems[j], elems[i]) > 0)
+                    {
+                        string tmp = elems[j];
+                        elems[j] = elems[i];
+                        elems[i] = tmp;
+                    }
+
+                }
+            Random rand = new Random();
+            if (n != 0)
+            {
+                dataGridView1.RowCount = n;
+                dataGridView1.ColumnCount = n;
+                dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
+
+                mas = new int[n, n];
+                int i, j;
+                for (i = 0; i < n; ++i)
+                {
+                    dataGridView1.Rows[i].HeaderCell.Value = elems[i].ToString();//называю хедеры рядов(строк) именами elems
+                    for (j = 0; j < n; ++j)
+                    {
+                        dataGridView1.Columns[j].HeaderCell.Value = elems[j].ToString();//называю хедеры колонок(столбцов) именами elems
+                        mas[i, j] = rand.Next(2);
+                        dataGridView1.Rows[i].Cells[j].Value = mas[i, j];
+
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("N не может быть нулевым");
+            }
+            //запрещает сортировать содержимое столбцов кликом по хедеру, а также минимизирует длину ячеек:
+            dataGridView1.Columns.Cast<DataGridViewColumn>().ToList().ForEach(f => f.SortMode = DataGridViewColumnSortMode.NotSortable);
+        }
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("ФИО: Алексеев С.В. \nГруппа:ИП-712");
+        }
         private void aboutToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             MessageBox.Show(
