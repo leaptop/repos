@@ -567,3 +567,8 @@ cd ..
 java -jar 'C:\Program Files\Java\jdk1.8.0_171\bin\bfg-1.13.0.jar' --delete-files id_{dsa,rsa} repos (удаление всех файлов с названиями id_dsa и id_rsa)
 
 C and C++ behave completely differently with * and &
+
+Кодировка:
+	IntelliJIdea File -> Settings -> Editor -> File Encoding
+	Notepad++ Кодировки
+	
