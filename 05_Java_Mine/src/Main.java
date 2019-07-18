@@ -12,16 +12,16 @@ public class Main {
             System.out.printf("%f ", array[i]);
         }
 
-        array[0] = 1;
+       /* array[0] = 1;
         array[1] = 0;
         array[2] = 0;
         array[3] = 1;
-    /*array[4] = 0;
-    array[5] = 0;
-    array[6] = 1;
-    array[7] = 0;
-    array[8] = 1;
-    array[9] = 0;*/
+        array[4] = 0;
+        array[5] = 0;
+        array[6] = 1;
+        array[7] = 0;
+        array[8] = 1;
+        array[9] = 0;*/
 
         for (int i = 0; i < kaef_two * kaef_one; i++)
             System.out.printf("%f ", array[i]);
@@ -38,7 +38,7 @@ public class Main {
         System.out.println("\nRe back half quick: ");
         for (int i = 0; i < kaef_two * kaef_one; i++)
             System.out.printf("%f ", back_res[i].real);
-        System.out.println("Im back half quick: ");
+        System.out.println("\nIm back half quick: ");
         for (int i = 0; i < kaef_two * kaef_one; i++)
             System.out.printf("%f ", back_res[i].image);
 

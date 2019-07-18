@@ -572,3 +572,7 @@ C and C++ behave completely differently with * and &
 	IntelliJIdea File -> Settings -> Editor -> File Encoding
 	Notepad++ Кодировки
 	
+	
+В cpp на VS для обращения к глобальной переменной нужно указывать ::  так:  ::count++;
+
+cout.precision(5); задаёт число цифр до и после запятой
