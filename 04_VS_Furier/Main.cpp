@@ -8,7 +8,7 @@
 
 
 
-const int n = 10;
+const int n = 4;
 int count = 0;
 
 struct complex {
@@ -70,16 +70,16 @@ int main() {
 		array[i] = i;
 		printf("%lf ", array[i]);
 	}*/
-	array[0] = 0;
-	array[1] = 1;
+	array[0] = 1;
+	array[1] = 0;
 	array[2] = 0;
 	array[3] = 1;
-	array[4] = 0;
+	/*array[4] = 0;
 	array[5] = 0;
 	array[6] = 1;
 	array[7] = 0;
 	array[8] = 1;
-	array[9] = 0;
+	array[9] = 0;*/
 	printf("\n\n");
 	direct_transform_fourier(array, res);
 	printf("Real part of direct transform: ");

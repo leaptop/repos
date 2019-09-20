@@ -1,48 +1,41 @@
-/* Iterative Java program for merge sort */
-
-import java.lang.Math.*;
 import java.util.Random;
+import java.util.Scanner;
 
 class Main {
 
-    /* Iterative mergesort function to sor
-    t arr[0...n-1] */
     static void mergeSort(int arr[], int n) {
+        int curr_size;//изменяется от 1 до n/2
+        int left_start;/*выбираю начальный индекс
+         левого подмассива для слияния*/
 
-        // For current size of subarrays to
-        // be merged curr_size varies from
-        // 1 to n/2
-        int curr_size;
-
-        // For picking starting index of
-        // left subarray to be merged
-        int left_start;
-
-
-        // Merge subarrays in bottom up
-        // manner. First merge subarrays
-        // of size 1 to create sorted
-        // subarrays of size 2, then merge
-        // subarrays of size 2 to create
-        // sorted subarrays of size 4, and
-        // so on.
+        /*
+        Сливаю подмассивы снизу вверх.
+        Сначала сливаю подмассивы размера 1,
+        чтобы создать отсортированные подмассивы размера 2,
+        потом сливаю подмассивы размера 2, чтобы создать
+        отсортированные подмассивы размера 4 и т.д.
+         */
         for (curr_size = 1; curr_size <= n - 1;
              curr_size = 2 * curr_size) {
+            /*
+            Выбираю начальную точку разных
+            подмассивов текущего размера
+             */
 
-            // Pick starting point of different
-            // subarrays of current size
             for (left_start = 0; left_start < n - 1;
                  left_start += 2 * curr_size) {
-                // Find ending point of left
-                // subarray. mid+1 is starting
-                // point of right
+              /*
+              ищу конечную точку левого подмассива.
+              mid+1 - начальная точка правого
+               */
                 int mid = Math.min(left_start + curr_size - 1, n - 1);
 
                 int right_end = Math.min(left_start
                         + 2 * curr_size - 1, n - 1);
+/*
+Сливаю подмассивы arr[left_start...mid] и arr[mid+1...right_end]
+ */
 
-                // Merge Subarrays arr[left_start...mid]
-                // & arr[mid+1...right_end]
                 merge(arr, left_start, mid, right_end);
 
                 //printArray(arr,);
@@ -51,26 +44,24 @@ class Main {
         }
     }
 
-    /* Function to merge the two haves arr[l..m] and
-    arr[m+1..r] of array arr[] */
+    /*  Функция для слияния двух половин arr[l..m] и
+    arr[m+1..r] массива arr[] */
     static void merge(int arr[], int l, int m, int r) {
         int i, j, k;
         int n1 = m - l + 1;
         int n2 = r - m;
 
-        /* create temp arrays */
+        /* Создаю временные массивы */
         int L[] = new int[n1];
         int R[] = new int[n2];
 
-		/* Copy data to temp arrays L[]
-		and R[] */
+		/* Копирую данные во временные массивы L[] и R[] */
         for (i = 0; i < n1; i++)
             L[i] = arr[l + i];
         for (j = 0; j < n2; j++)
             R[j] = arr[m + 1 + j];
 
-		/* Merge the temp arrays back into
-		arr[l..r]*/
+		/* Сливаю временные массмвы обратно к arr[l..r]*/
         i = 0;
         j = 0;
         k = l;
@@ -87,8 +78,8 @@ class Main {
             k++;
         }
 
-		/* Copy the remaining elements of
-		L[], if there are any */
+		/*Копирую оставшиеся элементы L[]
+		если они ещё есть*/
         while (i < n1) {
             arr[k] = L[i];
             i++;
@@ -97,8 +88,8 @@ class Main {
 
         }
 
-		/* Copy the remaining elements of
-		R[], if there are any */
+		/*Копирую оставшиеся элементы R[]
+		если они ещё есть*/
         while (j < n2) {
             arr[k] = R[j];
             j++;
@@ -109,7 +100,7 @@ class Main {
         System.out.printf("|");
     }
 
-    /* Function to print an array */
+    /*  Функция для вывода массива*/
     static void printArray(int A[], int size) {
         int i;
         for (i = 0; i < size; i++)
@@ -117,16 +108,19 @@ class Main {
         System.out.printf("\n");
     }
 
-    /* Driver program to test above functions */
-    public static void main(String[] args) {
+      public static void main(String[] args) {
         // int arr[] = {12, 11, 13, 5, 6, 7};
         // int n = arr.length;
-        int n = 10;
-        int arr[] = new int[n];
-        Random rand = new Random();
-        for (int i = 0; i < n; i++) {
-            arr[i] = rand.nextInt(50);
-        }
+
+          int c = 0, m = 0;
+          System.out.println("insert a size of array a: ");
+          Scanner in = new Scanner(System.in);
+          int n = in.nextInt();
+          System.out.println("insert next number of array: ");
+          int[] arr = new int[n];
+          for (int i = 0; i < n; i++) {
+              arr[i] = in.nextInt();
+          }
 
         System.out.printf("Given array is \n");
         printArray(arr, n);
