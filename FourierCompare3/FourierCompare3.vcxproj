@@ -20,8 +20,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
-    <ProjectGuid>{80E97D0C-ECB6-4525-B8AE-70A96CD2DB64}</ProjectGuid>
-    <RootNamespace>CPPLearning00</RootNamespace>
+    <ProjectGuid>{FDE592A5-D0E9-4BA1-9490-1E6A42E72C67}</ProjectGuid>
+    <RootNamespace>FourierCompare3</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -124,7 +124,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Source.cpp" />
+    <ClCompile Include="Discr.cpp" />
+    <ClCompile Include="Fast.cpp" />
+    <ClCompile Include="HalfQuick.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class Main {
     static double pi = Math.PI;
-    static int n = 4;//размер исходного массива
+    static int n = 9;//размер исходного массива
     static int count = 0;//для подсчета трудемкости
 
     static ComplNum complNumMultiplication(ComplNum a, ComplNum b) {//перемножение компл. чисел
@@ -50,7 +50,7 @@ public class Main {
                 sum.real += res_mul.real;
                 sum.image += res_mul.image;
             }
-            result[k].real = sum.real;//appointing the new numbers for the new resulting conplex numbers
+            result[k].real = sum.real;//appointing the new numbers for the new resulting complex numbers
             result[k].image = sum.image;//yes, the backward transform is also complex for some reason
            // if (result[k].image < 10e-10) result[k].image = 0;
             sum.real = 0;
@@ -70,8 +70,13 @@ public class Main {
         System.out.println("Source array: ");
         array[0] = 1;
         array[1] = 0;
-        array[2] = 0;
-        array[3] = 1;
+        array[2] = 1;
+        array[3] = 0;
+        array[4] = 1;
+        array[5] = 1;
+        array[6] = 0;
+        array[7] = 1;
+        array[8] = 0;
         for (int i = 0; i < n; i++) {
             //array[i] = rand.nextInt(2);
             System.out.print(array[i] + "  ");
@@ -79,25 +84,34 @@ public class Main {
         System.out.println();
 
         forwardDFT(array, res);
-        System.out.println("\nReal part of direct transform: ");
+      //  System.out.println("\nReal part of direct transform: ");
+       // System.out.println("прямое");
+        for (int i = 0; i < n; i++) {
+            //System.out.printf("%f ", res[i].real);
+        }
+        //System.out.println("\nImage part of direct transform: ");
+        System.out.println("pramoe");
         for (int i = 0; i < n; i++) {
             System.out.printf("%f ", res[i].real);
-        }
-        System.out.println("\nImage part of direct transform: ");
-        for (int i = 0; i < n; i++) {
-            System.out.printf("%f ", res[i].image);
+            System.out.print(" ");
+            System.out.printf("%f \n", res[i].image);
+            //System.out.print("\n");
         }
         System.out.println();
 
 
         backwardsDFT(res, result);
-        System.out.println("\nReal part of back transform: ");
+       // System.out.println("\nReal part of back transform: ");
+        for (int i = 0; i < n; i++) {
+            //System.out.printf("%f ", result[i].real);
+        }
+       // System.out.println("\nImage part of back transform: ");
+        System.out.println("obratnoe");
         for (int i = 0; i < n; i++) {
             System.out.printf("%f ", result[i].real);
-        }
-        System.out.println("\nImage part of back transform: ");
-        for (int i = 0; i < n; i++) {
-            System.out.printf("%f ", result[i].image);
+            System.out.print(" ");
+            System.out.printf("%f \n", result[i].image);
+            //System.out.print("\n; ");
         }
         System.out.println("\nDifficulty: " + count);
     }

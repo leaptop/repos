@@ -1,0 +1,3 @@
+class Super{
+    int a;
+}

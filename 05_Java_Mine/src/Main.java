@@ -7,38 +7,35 @@ public class Main {
         ComplNum[] back_res = new ComplNum[kaef_two * kaef_one];
 
         System.out.println("Source array: ");
-        for (int i = 0; i < kaef_two * kaef_one; i++) {
-            array[i] = i;
-            System.out.printf("%f ", array[i]);
-        }
+      //  for (int i = 0; i < kaef_two * kaef_one; i++) {array[i] = i;System.out.printf("%f ", array[i]);}
 
-       /* array[0] = 1;
+        array[0] = 1;
         array[1] = 0;
-        array[2] = 0;
-        array[3] = 1;
-        array[4] = 0;
-        array[5] = 0;
-        array[6] = 1;
-        array[7] = 0;
-        array[8] = 1;
-        array[9] = 0;*/
+        array[2] = 1;
+        array[3] = 0;
+        array[4] = 1;
+        array[5] = 1;
+        array[6] = 0;
+        array[7] = 1;
+        array[8] = 0;
+       // array[9] = 0;
 
         for (int i = 0; i < kaef_two * kaef_one; i++)
             System.out.printf("%f ", array[i]);
 
         half_quick_transform(array, res);
-        System.out.println("\nRe half quick: ");
+        System.out.println("\nReal half quick: ");
         for (int i = 0; i < kaef_two * kaef_one; i++)
             System.out.printf("%f ", res[i].real);
-        System.out.println("Im half quick: ");
+        System.out.println("\nImag half quick: ");
         for (int i = 0; i < kaef_two * kaef_one; i++)
             System.out.printf("%f ", res[i].image);
 
         back_half_quick_transform(res, back_res);
-        System.out.println("\nRe back half quick: ");
+        System.out.println("\nReal back half quick: ");
         for (int i = 0; i < kaef_two * kaef_one; i++)
             System.out.printf("%f ", back_res[i].real);
-        System.out.println("\nIm back half quick: ");
+        System.out.println("\nImag back half quick: ");
         for (int i = 0; i < kaef_two * kaef_one; i++)
             System.out.printf("%f ", back_res[i].image);
 
@@ -46,7 +43,7 @@ public class Main {
     }
 
     private static double pi = Math.PI;
-    private static int kaef_one = 10, kaef_two = 5;//kaef_one - is p1 in the textbook, kaef_two is p2
+    private static int kaef_one = 3, kaef_two = 3;//kaef_one - is p1 in the textbook, kaef_two is p2
     private static int count_1 = 0, count_2 = 0;//для подсчета трудемкости
 
     private static ComplNum complNumMultiplication(ComplNum a, ComplNum b) {//перемножение компл. чисел
