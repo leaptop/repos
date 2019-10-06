@@ -7,8 +7,8 @@
 #define _USE_MATH_DEFINES
 #define M_PI 3.14159265358979323846
 using namespace std;
-
-int kaef_one = 3, kaef_two = 3;
+//1024 elems
+int kaef_one = 32, kaef_two = 32;
 
 struct complexx {
 	double real = 0;
@@ -26,7 +26,7 @@ complexx multiple_complex(complexx a, complexx b) {
 int count01 = 0;
 int count_1 = 0, count_2 = 0;
 //const int n = kaef_one * kaef_two;
-const int n = 9;
+const int n = 1024;
 
 void direct_transform_fourier(double* array, complexx* result) {
 	complexx A; complexx sum;
@@ -87,8 +87,8 @@ complexx second_transform(complexx** array, int k_1, int k_2) {
 	double coef;
 	complexx sum, temp, res_mul;
 	sum.real = 0, sum.image = 0;
-	for (int j_2 = 0; j_2 < kaef_two; j_2++) {
-		count_2 += 7;
+	for (int j_2 = 0; ¸	j_2 < kaef_two; j_2++) {
+		count_2 += 4;
 		k = k_1 + kaef_one * k_2;
 		coef = (double)(j_2 * k) / (kaef_one * kaef_two);
 		temp.real = cos(-2 * M_PI * coef);
@@ -174,10 +174,12 @@ int main() {
 	srand(time(NULL));
 	cout << fixed << "Source array: ";
 	for (int i = 0; i < n; i++) {
-		array[i] = 0;
+		array[i] = rand();
 		//cout << fixed << array[i]<< "  ";
 	}
-	array[0] = 1;
+	direct_transform_fourier(array, res);
+	half_quick_transform(array, res1);
+	/*array[0] = 1;
 	array[1] = 0;
 	array[2] = 1;
 	array[3] = 0;
@@ -246,7 +248,7 @@ int main() {
 	cout <<setw(wi)<< res[i].real << "  " << setw(wi) << res[i].image << "  " << setw(wi) << source[i].real << "  " << setw(wi) << source[i].image << "  " << setw(wi) << res1[i].real << "  " << setw(wi) << res1[i].image << "  " << setw(wi) << back[i].real << "  " << setw(wi) << back[i].image << "\n";
 	}
 	cout << fixed << endl << endl;
-
+	*/
 	cout << fixed << "\nDiscrete operations: " << count01;
 	cout << fixed << "\nHalf-quick operations: " << count_1 + count_2 << endl;
 	// Half quick is off

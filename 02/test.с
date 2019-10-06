@@ -1,0 +1,10 @@
+/*#include <windows.h>
+#include <tchar.h>
+#include <stdio.h>
+
+#define INFO_BUFFER_SIZE 32767
+*/
+#include <stdio.h>
+void main() {
+    printf("HIII");
+}
